@@ -23,16 +23,12 @@ spring:
         - id: ms-inventory
           uri: lb://ms-inventory
           predicates:
-            - Path=/api/inventory/**
-          filters:
-            - StripPrefix=1
+            - Path=/api/productos/**
 
         - id: ms-sales
           uri: lb://ms-sales
           predicates:
-            - Path=/api/sales/**
-          filters:
-            - StripPrefix=1
+            - Path=/api/ventas/**
       
         - id: ms-purchases
           uri: lb://ms-purchases
