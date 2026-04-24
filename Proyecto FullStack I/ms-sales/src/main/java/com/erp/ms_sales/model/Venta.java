@@ -15,14 +15,11 @@ public class Venta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private Long productoId;
-
+    private String clienteRut;
     private Integer cantidad;
-
     @Min(value = 1, message = "El precio total debe ser superior a $1") 
     private Double precioTotal;
-    
     private LocalDateTime fechaVenta;
 
     @PrePersist

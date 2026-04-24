@@ -27,8 +27,8 @@ public class VentaController {
     }
 
     @PostMapping
-    public ResponseEntity<Venta> realizarVenta(@RequestParam Long productoId, @RequestParam Integer cantidad){
-        return new ResponseEntity<>(ventaService.procesarVenta(productoId, cantidad), HttpStatus.CREATED);
+    public ResponseEntity<Venta> realizarVenta(@RequestParam Long productoId, @RequestParam String clienteRut, @RequestParam Integer cantidad){
+        return new ResponseEntity<>(ventaService.procesarVenta(productoId, clienteRut, cantidad), HttpStatus.CREATED);
     }
     
     @DeleteMapping("/{id}")

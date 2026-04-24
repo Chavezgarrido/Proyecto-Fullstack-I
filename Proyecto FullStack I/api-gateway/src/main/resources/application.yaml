@@ -29,6 +29,11 @@ spring:
           uri: lb://ms-sales
           predicates:
             - Path=/api/ventas/**
+    
+        - id: ms-clients
+          uri: lb://ms-clients
+          predicates:
+            - Path=/api/clientes/**
       
         - id: ms-purchases
           uri: lb://ms-purchases
