@@ -35,12 +35,10 @@ spring:
           predicates:
             - Path=/api/clientes/**
       
-        - id: ms-purchases
-          uri: lb://ms-purchases
+        - id: ms-reports
+          uri: lb://ms-reports
           predicates:
-            - Path=/api/purchases/**
-          filters:
-            - StripPrefix=1
+            - Path=/api/reportes/**
       
         - id: ms-finances
           uri: lb://ms-finances
