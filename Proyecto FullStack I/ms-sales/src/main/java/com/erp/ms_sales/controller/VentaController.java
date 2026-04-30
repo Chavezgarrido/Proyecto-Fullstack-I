@@ -1,5 +1,6 @@
 package com.erp.ms_sales.controller;
 
+import com.erp.ms_sales.dto.VentaRequestDTO;
 import com.erp.ms_sales.model.Venta;
 import com.erp.ms_sales.service.VentaService;
 
@@ -27,8 +28,12 @@ public class VentaController {
     }
 
     @PostMapping
-    public ResponseEntity<Venta> realizarVenta(@RequestParam Long productoId, @RequestParam String clienteRut, @RequestParam Integer cantidad){
-        return new ResponseEntity<>(ventaService.procesarVenta(productoId, clienteRut, cantidad), HttpStatus.CREATED);
+    public ResponseEntity<Venta> realizarVenta(@RequestBody VentaRequestDTO request){
+        return new ResponseEntity<>(ventaService.procesarVenta(
+            request.getProductoId(),
+            request.getClienteRut(),
+            request.getCantidad()),
+            HttpStatus.CREATED);
     }
     
     @DeleteMapping("/{id}")

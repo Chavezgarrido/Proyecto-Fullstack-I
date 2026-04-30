@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
 import lombok.*;
-import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "ventas")
@@ -18,7 +17,6 @@ public class Venta {
     private Long productoId;
     private String clienteRut;
     private Integer cantidad;
-    @Min(value = 1, message = "El precio total debe ser superior a $1") 
     private Double precioTotal;
     private LocalDateTime fechaVenta;
 
