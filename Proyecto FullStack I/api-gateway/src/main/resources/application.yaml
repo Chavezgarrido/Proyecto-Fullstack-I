@@ -13,13 +13,6 @@ spring:
           lower-case-service-id: true
 
       routes: 
-        - id: ms-auth
-          uri: lb://ms-auth
-          predicates:
-            - Path=/api/auth/**
-          filters:
-            - StripPrefix=1
-
         - id: ms-inventory
           uri: lb://ms-inventory
           predicates:
@@ -40,19 +33,11 @@ spring:
           predicates:
             - Path=/api/reportes/**
       
-        - id: ms-finances
-          uri: lb://ms-finances
+        - id: ms-providers
+          uri: lb://ms-providers
           predicates:
-            - Path=/api/finances/**
-          filters:
-            - StripPrefix=1
+            - Path=/api/proveedores/**
 
-        - id: ms-rrhh
-          uri: lb://ms-rrhh
-          predicates:
-            - Path=/api/rrhh/**
-          filters:
-            - StripPrefix=1
 
 eureka:
   client:
