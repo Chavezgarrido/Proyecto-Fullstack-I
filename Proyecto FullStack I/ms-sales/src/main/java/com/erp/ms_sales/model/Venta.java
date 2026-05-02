@@ -18,10 +18,16 @@ public class Venta {
     private String clienteRut;
     private Integer cantidad;
     private Double precioTotal;
+    private Long vendedorId;
     private LocalDateTime fechaVenta;
 
     @PrePersist
     public void prePersist(){
         this.fechaVenta = LocalDateTime.now();
+    }
+
+    public void setVendedorId(Object vendedorId2) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setVendedorId'");
     }
 }
