@@ -5,6 +5,7 @@ import com.erp.ms_sales.client.CustomerClient;
 import com.erp.ms_sales.dto.ProductoDTO;
 import com.erp.ms_sales.model.Venta;
 import com.erp.ms_sales.repository.VentaRepository;
+import com.erp.ms_sales.client.SellerClient;
 
 import lombok.*;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,8 @@ public class VentaService {
     private final VentaRepository ventaRepository;
     private final InventoryClient inventoryClient;
     private final CustomerClient customerClient;
+    private final SellerClient sellerClient;
+    private final Object vendedorId;
 
     @Transactional(readOnly = true)
     public List<Venta> obtenerTodas(){
@@ -31,10 +34,11 @@ public class VentaService {
     }
 
     @Transactional
-    public Venta procesarVenta(Long productoId, String clienteRut, Integer cantidad){
+    public Venta procesarVenta1(Long productoId, String clienteRut, Integer cantidad, Long long1){
         if(productoId == null) throw new RuntimeException("El id del producto es obligatorio");
         if(clienteRut == null || clienteRut.isBlank()) throw new RuntimeException("El rut del cliente es obligatorio");
         if(cantidad == null || cantidad <= 0) throw new RuntimeException("La cantidad debe ser mayor a cero.");
+        if(vendedorId == null) throw new RuntimeException("El id del vendedor es obligatorio");
         
         customerClient.buscarPorRut(clienteRut);
 
@@ -45,11 +49,13 @@ public class VentaService {
         }
 
         inventoryClient.restarStock(productoId, cantidad);
+        sellerClient.sumarVentaYBonificacion(vendedorId);
 
         Venta venta = new Venta();
         venta.setProductoId(productoId);
         venta.setClienteRut(clienteRut);
         venta.setCantidad(cantidad);
+        venta.setVendedorId(vendedorId);
         venta.setPrecioTotal(producto.getPrecio() * cantidad);
 
         return ventaRepository.save(venta);
@@ -62,5 +68,11 @@ public class VentaService {
         }
         ventaRepository.deleteById(id);
     }
+
+    public Venta procesarVenta(Long productoId, String clienteRut, Integer cantidad, Long vendedorId) {
+        
+        throw new UnsupportedOperationException("Unimplemented method 'procesarVenta'");
+    }
+    
 
 }
