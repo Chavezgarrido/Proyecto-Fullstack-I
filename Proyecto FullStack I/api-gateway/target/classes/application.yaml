@@ -38,6 +38,11 @@ spring:
           predicates:
             - Path=/api/proveedores/**
 
+        - id: ms-sellers
+          uri: lb://ms-sellers
+          predicates:
+            - Path=/api/vendedores/**
+
 
 eureka:
   client:

@@ -18,10 +18,12 @@ public class Venta {
     private String clienteRut;
     private Integer cantidad;
     private Double precioTotal;
+    private Long vendedorId;
     private LocalDateTime fechaVenta;
 
     @PrePersist
     public void prePersist(){
         this.fechaVenta = LocalDateTime.now();
     }
+
 }

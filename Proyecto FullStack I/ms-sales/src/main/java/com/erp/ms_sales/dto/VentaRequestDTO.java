@@ -7,4 +7,5 @@ public class VentaRequestDTO {
     private Long productoId;
     private String clienteRut;
     private Integer cantidad;
+    private Long vendedorId;
 }

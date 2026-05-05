@@ -32,7 +32,8 @@ public class VentaController {
         return new ResponseEntity<>(ventaService.procesarVenta(
             request.getProductoId(),
             request.getClienteRut(),
-            request.getCantidad()),
+            request.getCantidad(),
+            request.getVendedorId()),
             HttpStatus.CREATED);
     }
     
