@@ -1,3 +1,31 @@
+/*Creacion de base de datos clientes */
+CREATE DATABASE IF NOT EXISTS clientes_db;
+USE clientes_db;
+
+/*Creacion de tabla */
+CREATE TABLE clientes (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    rut VARCHAR(10) UNIQUE NOT NULL,
+    nombre VARCHAR(255) NOT NULL,
+    email VARCHAR(255),
+    telefono VARCHAR(20),
+    fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+/*Insercion de datos */
+INSERT INTO clientes (rut, nombre, email, telefono) VALUES
+('12345678-9', 'Juan Pérez', 'juan.perez@email.com', '+56912345678'),
+('11222333-K', 'María González', 'm.gonzalez@empresa.cl', '+56922334455'),
+('15987456-2', 'Carlos Soto', 'csoto@gmail.com', '+56933445566'),
+('18765432-1', 'Ana Morales', 'ana.morales@outlook.com', '+56944556677'),
+('9876543-2', 'Roberto Jara', 'rjara@servicios.net', '+56955667788'),
+('20123456-7', 'Lucía Fernández', 'lfernandez@freelance.com', '+56966778899'),
+('14555666-4', 'Diego Portales', 'dportales@gobierno.cl', '+56977889900'),
+('17888999-0', 'Elena Olavarría', 'elena.o@universidad.edu', '+56988990011'),
+('13222111-5', 'Felipe Avello', 'pecesillo@comedia.cl', '+56999001122'),
+('19444333-8', 'Valentina Tapia', 'v.tapia@agencia.io', '+56911223344');
+
+
 CREATE DATABASE IF NOT EXISTS inventario_db;
 USE inventario_db;
 
@@ -21,29 +49,7 @@ INSERT INTO productos (nombre, descripcion, precio, stock) VALUES
 ('HP LaserJet Pro', 'Impresora láser monocromática de alta eficiencia', 180, 5),
 ('Cable HDMI Ultra High Speed', 'Cable de 2 metros compatible con 8K @ 60Hz', 15, 200);
 
-CREATE DATABASE IF NOT EXISTS clientes_db;
-USE clientes_db;
 
-CREATE TABLE clientes (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    rut VARCHAR(10) UNIQUE NOT NULL,
-    nombre VARCHAR(255) NOT NULL,
-    email VARCHAR(255),
-    telefono VARCHAR(20),
-    fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP
-);
-
-INSERT INTO clientes (rut, nombre, email, telefono) VALUES
-('12345678-9', 'Juan Pérez', 'juan.perez@email.com', '+56912345678'),
-('11222333-K', 'María González', 'm.gonzalez@empresa.cl', '+56922334455'),
-('15987456-2', 'Carlos Soto', 'csoto@gmail.com', '+56933445566'),
-('18765432-1', 'Ana Morales', 'ana.morales@outlook.com', '+56944556677'),
-('9876543-2', 'Roberto Jara', 'rjara@servicios.net', '+56955667788'),
-('20123456-7', 'Lucía Fernández', 'lfernandez@freelance.com', '+56966778899'),
-('14555666-4', 'Diego Portales', 'dportales@gobierno.cl', '+56977889900'),
-('17888999-0', 'Elena Olavarría', 'elena.o@universidad.edu', '+56988990011'),
-('13222111-5', 'Felipe Avello', 'pecesillo@comedia.cl', '+56999001122'),
-('19444333-8', 'Valentina Tapia', 'v.tapia@agencia.io', '+56911223344');
 
 CREATE DATABASE IF NOT EXISTS ventas_db;
 USE ventas_db;
