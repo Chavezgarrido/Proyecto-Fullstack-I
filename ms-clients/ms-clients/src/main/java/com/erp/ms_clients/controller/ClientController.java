@@ -18,28 +18,33 @@ public class ClientController {
     private final ClientService clientService;
 
     @GetMapping
-    public ResponseEntity<List<ClientDTO>> getAll(){
+    public ResponseEntity<List<ClientDTO>> getAll() {
         return ResponseEntity.ok(clientService.getAll());
     }
 
+    @GetMapping("/rut/{rut}")
+    public ResponseEntity<ClientDTO> getByRut(@PathVariable String rut) {
+        return ResponseEntity.ok(clientService.getByRut(rut));
+    }
+
     @GetMapping("/{id}")
-    public ResponseEntity<ClientDTO> getById(@PathVariable Long id){
+    public ResponseEntity<ClientDTO> getById(@PathVariable Long id) {
         return ResponseEntity.ok(clientService.getById(id));
     }
 
     @PostMapping
-    public ResponseEntity<ClientDTO> create(@Valid @RequestBody ClientDTO dto){
+    public ResponseEntity<ClientDTO> create(@Valid @RequestBody ClientDTO dto) {
         return new ResponseEntity<>(clientService.create(dto), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ClientDTO> update(@PathVariable Long id, @Valid @RequestBody ClientDTO dto){
+    public ResponseEntity<ClientDTO> update(@PathVariable Long id, @Valid @RequestBody ClientDTO dto) {
         ClientDTO updated = clientService.update(id, dto);
         return ResponseEntity.ok(updated);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id){
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         clientService.delete(id);
         return ResponseEntity.noContent().build();
     }

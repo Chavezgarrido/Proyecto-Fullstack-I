@@ -36,14 +36,15 @@ public class OrderService {
     @Transactional
     public Order create(OrderRequestDTO request) {
         log.info("Iniciando creación de pedido para cliente " + request.getClienteRut());
+        
         ClientDTO client = clienteClient.getByRut(request.getClienteRut());
-        if (client == null || !client.isActivo()) {
-            throw new RuntimeException("El cliente no existe o no está activo");
+        if (client == null) {
+            throw new RuntimeException("El cliente no existe en el sistema");
         }
 
         SellerDTO seller = sellerClient.getByRut(request.getVendedorRut());
-        if (seller == null || !seller.isActivo()) {
-            throw new RuntimeException("El vendedor no existe o no está activo");
+        if (seller == null) {
+            throw new RuntimeException("El vendedor no existe en el sistema");
         }
 
         Order newOrder = new Order();
@@ -68,9 +69,9 @@ public class OrderService {
             OrderItem orderItem = new OrderItem();
             orderItem.setProductoSku(product.getSku());
             orderItem.setCantidad(itemDTO.getCantidad());
-            orderItem.setPrecioUnitario(product.getPrecio());
+            orderItem.setPrecioUnitario((double) product.getPrecio());
 
-            double subtotal = product.getPrecio() * itemDTO.getCantidad();
+            double subtotal = (double) product.getPrecio() * itemDTO.getCantidad();
             orderItem.setSubtotal(subtotal);
 
             totalPedido += subtotal;

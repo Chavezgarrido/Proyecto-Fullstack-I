@@ -31,9 +31,9 @@ public class ProductController {
         return new ResponseEntity<>(productService.create(dto), HttpStatus.CREATED);
     }
 
-    @PatchMapping("/{id}/stock")
-    public ResponseEntity<ProductDTO> updateStock(@PathVariable Long id, @RequestParam int cantidad){
-        return ResponseEntity.ok(productService.updateStock(id, cantidad));
+    @PostMapping("/update-stock")
+    public ResponseEntity<ProductDTO> updateStock(@RequestParam String sku, @RequestParam int cantidad){
+        return ResponseEntity.ok(productService.updateStock(sku, cantidad));
     }
 
     @DeleteMapping("/{id}")

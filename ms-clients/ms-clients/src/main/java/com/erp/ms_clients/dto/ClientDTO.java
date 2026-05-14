@@ -4,6 +4,8 @@ import jakarta.validation.constraints.*;
 import lombok.*;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -25,5 +27,6 @@ public class ClientDTO {
     @Size(min = 9, max = 15, message = "El teléfono debe tener entre 9 y 15 caracteres")
     private String telefono;
 
+    @JsonProperty("fecha_creacion")
     private LocalDateTime fechaCreacion;
 }

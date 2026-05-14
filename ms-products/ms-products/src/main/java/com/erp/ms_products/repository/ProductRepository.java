@@ -12,9 +12,9 @@ public interface ProductRepository extends JpaRepository<Product, Long>{
 
     Optional<Product> findBySku(String sku);
 
-    List<Product> findByName(String nombre);
+    List<Product> findByNombre(String nombre);
 
-    List<Product> finbByStockLessThan(Integer limite);
+    List<Product> findByStockLessThan(Integer limite);
 
     boolean existsBySku(String sku);
 }

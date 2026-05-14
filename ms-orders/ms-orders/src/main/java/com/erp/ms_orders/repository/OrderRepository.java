@@ -10,5 +10,5 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     List<Order> findByClienteRut(String clienteRut);
 
-    List<Order> findBySellerRut(String vendedorRut);
+    List<Order> findByVendedorRut(String vendedorRut);
 }

@@ -44,6 +44,19 @@ public class ClientService {
                 });
     }
 
+    @Transactional(readOnly = true)
+    public ClientDTO getByRut(String rut) {
+        log.info("Buscando cliente con RUT: " + rut);
+        String rutLimpio = rut.replace(".", "").replace(" ", "").toUpperCase();
+        
+        return clientRepository.findByRut(rutLimpio)
+                .map(this::convertToDTO)
+                .orElseThrow(() -> {
+                    log.error("Cliente con RUT " + rutLimpio + " no encontrado");
+                    return new RuntimeException("Cliente no encontrado con el RUT proporcionado");
+                });
+    }
+
     @Transactional
     public ClientDTO create(ClientDTO dto){
         log.info("Creando nuevo cliente con rut " + dto.getRut());

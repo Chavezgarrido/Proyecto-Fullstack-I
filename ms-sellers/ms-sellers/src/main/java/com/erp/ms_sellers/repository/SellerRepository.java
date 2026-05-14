@@ -9,6 +9,6 @@ public interface SellerRepository extends JpaRepository<Seller, Long> {
 
     Optional<Seller> findByRut(String rut);
     List<Seller> findBySucursal(String sucursal);
-    List<Seller> findByActivo();
+    List<Seller> findByActivo(boolean activo);
     boolean existsByRut(String rut);
 }
