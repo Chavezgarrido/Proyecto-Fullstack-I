@@ -93,6 +93,20 @@ public class ProductService {
     }
 
     @Transactional
+    public ProductDTO addStock(String sku, int cantidadASumar){
+        log.info("Sumando stock por compra a sku " + sku);
+        Product product = productRepository.findBySku(sku)
+            .orElseThrow(() -> new RuntimeException("Producto con sku " + sku + " no encontrado"));
+
+            product.setStock(product.getStock() + cantidadASumar);
+            Product updated = productRepository.save(product);
+
+            log.info("Stock aumentado del producto " + updated.getNombre() + " sku " + updated.getSku() + ". Nuevo stock: " + updated.getStock() + " unidades");
+
+            return convertToDTO(updated);
+    }
+
+    @Transactional
     public void delete(Long id) {
         log.info("Eliminando producto id " + id);
         if (!productRepository.existsById(id)) {

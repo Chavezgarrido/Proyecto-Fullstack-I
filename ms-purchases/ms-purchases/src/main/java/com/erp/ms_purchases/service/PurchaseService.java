@@ -51,7 +51,7 @@ public class PurchaseService {
         Purchase savedPurchase = purchaseRepository.save(purchase);
 
         try {
-            productClient.updateStock(dto.getProductSku(), dto.getCantidad());
+            productClient.addStock(dto.getProductSku(), dto.getCantidad());
             log.info("Stock actualizado correctamente para sku " + dto.getProductSku());
         } catch (Exception e) {
             log.error("No se pudo actualizar el stock para el SKU " + dto.getProductSku());

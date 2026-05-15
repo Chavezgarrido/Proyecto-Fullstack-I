@@ -71,6 +71,7 @@
 }
 
 --Registros de Orders (Metodo POST en localhost:8080/api/orders)
+
 {
     "clienteRut": "12345678-9",
     "vendedorRut": "184445556",
@@ -115,4 +116,57 @@
     ],
     "total": 535000.0,
     "fechaPedido": "2026-05-13T19:50:40.971743"
+}
+
+--Registros de Providers (Metodo POST en localhost:8080/api/providers)
+
+{
+    "rut": "76123456-K",
+    "razonSocial": "Distribuidora de Alimentos S.A.",
+    "categoria": "Alimentos",
+    "contactoNombre": "Carlos González",
+    "email": "ventas@distribuidora.cl",
+    "telefono": "+56912345678",
+    "direccion": "Av. Libertador 1234, Santiago"
+}
+{
+    "rut": "77987654-3",
+    "razonSocial": "Tecnologías Globales SpA",
+    "categoria": "Informática",
+    "contactoNombre": "Andrea Muñoz",
+    "email": "contacto@techglobal.cl",
+    "telefono": "+5622334455",
+    "direccion": "Huérfanos 800, Santiago Centro"
+}
+{
+    "rut": "81456789-2",
+    "razonSocial": "Suministros de Oficina Ltda.",
+    "categoria": "Librería",
+    "contactoNombre": "Roberto Soto",
+    "email": "r.soto@suministros.cl",
+    "telefono": "+56987654321",
+    "direccion": "Calle Larga 55, Renca"
+  }
+
+----Registros de Purchases (Metodo POST en localhost:8080/api/purchases)
+
+{
+    "productSku": "PROD-OFF-001",
+    "providerRut": "814567892",
+    "cantidad": 5,
+    "precioUnitario": 180000
+}
+
+{
+    "productSku": "PROD-OFF-001",
+    "providerRut": "81456789-2",
+    "cantidad": 10,
+    "precioUnitario": 180000
+}
+
+{
+    "productSku": "PROD-OFF-001",
+    "providerRut": "81456789-2",
+    "cantidad": 2,
+    "precioUnitario": 180000
 }

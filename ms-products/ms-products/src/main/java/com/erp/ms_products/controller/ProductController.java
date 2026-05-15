@@ -2,6 +2,7 @@ package com.erp.ms_products.controller;
 
 import com.erp.ms_products.dto.ProductDTO;
 import com.erp.ms_products.service.ProductService;
+
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -34,6 +35,11 @@ public class ProductController {
     @PostMapping("/update-stock")
     public ResponseEntity<ProductDTO> updateStock(@RequestParam String sku, @RequestParam int cantidad){
         return ResponseEntity.ok(productService.updateStock(sku, cantidad));
+    }
+
+    @PostMapping("/add-stock")
+    public ResponseEntity<ProductDTO> addStock(@RequestParam String sku, @RequestParam int cantidad){
+        return ResponseEntity.ok(productService.addStock(sku, cantidad));
     }
 
     @DeleteMapping("/{id}")
