@@ -27,6 +27,12 @@ public class ProductController {
         return ResponseEntity.ok(productService.getBySku(sku));
     }
 
+    @GetMapping("/id/{id}")
+    public ResponseEntity<ProductDTO> getById(@PathVariable String id){
+        return ResponseEntity.ok(productService.getById(id));
+
+    }
+
     @PostMapping
     public ResponseEntity<ProductDTO> create(@Valid @RequestBody ProductDTO dto){
         return new ResponseEntity<>(productService.create(dto), HttpStatus.CREATED);
@@ -40,6 +46,11 @@ public class ProductController {
     @PostMapping("/add-stock")
     public ResponseEntity<ProductDTO> addStock(@RequestParam String sku, @RequestParam int cantidad){
         return ResponseEntity.ok(productService.addStock(sku, cantidad));
+    }
+
+    @PutMapping("/id/{id}")
+    public ResponseEntity<ProductDTO> update(@PathVariable Long id, @Valid@RequestBody ProductDTO dto){
+        return ResponseEntity.ok(productService.update(id, dto));
     }
 
     @DeleteMapping("/{id}")

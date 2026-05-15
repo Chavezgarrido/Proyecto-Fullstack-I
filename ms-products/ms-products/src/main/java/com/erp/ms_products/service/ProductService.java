@@ -45,6 +45,16 @@ public class ProductService {
                 });
     }
 
+     @Transactional(readOnly = true)
+    public ProductDTO getById(String id) {
+        log.info("Buscando producto con id " + id);
+        return productRepository.findById(id).map(this::convertToDTO)
+                .orElseThrow(() -> {
+                    log.error("Producto con id " + id + " no encontrado");
+                    return new RuntimeException("Producto no encontrado");
+                });
+    }
+
     @Transactional
     public ProductDTO create(ProductDTO dto) {
         log.info("Registrando nuevo producto con sku " + dto.getSku());
@@ -82,7 +92,7 @@ public class ProductService {
                     sku, product.getStock(), cantidadARestar);
             throw new RuntimeException("Stock insuficiente para el producto: " + product.getNombre());
         }
-        
+
         product.setStock(nuevoStock);
         Product updated = productRepository.save(product);
 
@@ -93,17 +103,44 @@ public class ProductService {
     }
 
     @Transactional
-    public ProductDTO addStock(String sku, int cantidadASumar){
+    public ProductDTO addStock(String sku, int cantidadASumar) {
         log.info("Sumando stock por compra a sku " + sku);
         Product product = productRepository.findBySku(sku)
-            .orElseThrow(() -> new RuntimeException("Producto con sku " + sku + " no encontrado"));
+                .orElseThrow(() -> new RuntimeException("Producto con sku " + sku + " no encontrado"));
 
-            product.setStock(product.getStock() + cantidadASumar);
-            Product updated = productRepository.save(product);
+        product.setStock(product.getStock() + cantidadASumar);
+        Product updated = productRepository.save(product);
 
-            log.info("Stock aumentado del producto " + updated.getNombre() + " sku " + updated.getSku() + ". Nuevo stock: " + updated.getStock() + " unidades");
+        log.info("Stock aumentado del producto " + updated.getNombre() + " sku " + updated.getSku() + ". Nuevo stock: "
+                + updated.getStock() + " unidades");
 
-            return convertToDTO(updated);
+        return convertToDTO(updated);
+    }
+
+    @Transactional
+    public ProductDTO update(Long id, ProductDTO dto) {
+        log.info("Actualizando producto con id " + id);
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.error("No se puede actualizar. Producto con id " + id + " no existe");
+                    return new RuntimeException("Producto con id " + id + " no encontrado");
+                });
+        String newSku = dto.getSku().toUpperCase().trim();
+        if (!product.getSku().equals(newSku)) {
+            if (productRepository.existsBySku(newSku)) {
+                throw new RuntimeException("El sku " + newSku + " ya pertenece a otro producto");
+            }
+            product.setSku(newSku);
+        }
+        product.setNombre(dto.getNombre());
+        product.setDescripcion(dto.getDescripcion());
+        product.setPrecio(dto.getPrecio());
+        product.setStock(dto.getStock());
+
+        Product updated = productRepository.save(product);
+        log.info("Producto id " + updated.getId() + " actualizado exitosamente");
+
+        return convertToDTO(updated);
     }
 
     @Transactional
