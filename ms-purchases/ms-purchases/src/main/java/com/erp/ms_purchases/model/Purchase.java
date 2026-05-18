@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,6 +28,7 @@ public class Purchase {
     private Long id;
 
     @Column(nullable = false)
+    @NotNull(message = "El sku es obligatorio")
     private String productSku;
 
     @Column(nullable = false)

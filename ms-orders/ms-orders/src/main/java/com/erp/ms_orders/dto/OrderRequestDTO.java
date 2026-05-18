@@ -1,5 +1,6 @@
 package com.erp.ms_orders.dto;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import java.util.List;
@@ -14,5 +15,6 @@ public class OrderRequestDTO {
     private String vendedorRut;
 
     @NotEmpty(message = "El pedido debe tener al menos un item")
+    @Valid
     private List<ItemRequestDTO> items;
 }

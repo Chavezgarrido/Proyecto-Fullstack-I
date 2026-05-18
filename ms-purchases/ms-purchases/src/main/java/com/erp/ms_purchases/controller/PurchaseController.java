@@ -14,6 +14,7 @@ import com.erp.ms_purchases.dto.PurchaseRequestDTO;
 import com.erp.ms_purchases.model.Purchase;
 import com.erp.ms_purchases.service.PurchaseService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -29,7 +30,7 @@ public class PurchaseController {
     }
 
     @PostMapping
-    public ResponseEntity<Purchase> realizarCompra(@RequestBody PurchaseRequestDTO dto) {
+    public ResponseEntity<Purchase> realizarCompra(@Valid @RequestBody PurchaseRequestDTO dto) {
         return new ResponseEntity<>(purchaseService.processPurchase(dto), HttpStatus.CREATED);
     }
 }

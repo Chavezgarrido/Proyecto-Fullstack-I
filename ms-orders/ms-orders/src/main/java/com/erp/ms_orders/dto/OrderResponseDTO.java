@@ -4,6 +4,8 @@ import lombok.Data;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import jakarta.validation.constraints.*;
+
 @Data
 public class OrderResponseDTO {
     private Long id;
@@ -16,6 +18,8 @@ public class OrderResponseDTO {
 
 @Data
 class OrderItemDTO {
+
+    @NotNull(message = "El sku es obligatorio")
     private String productoSku;
     private Integer cantidad;
     private Double precioUnitario;
