@@ -22,6 +22,7 @@ public class Order {
     @Column(name = "vendedor_rut", nullable = false)
     private String vendedorRut;
 
+    @com.fasterxml.jackson.annotation.JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "order_id")
     private List<OrderItem> items;

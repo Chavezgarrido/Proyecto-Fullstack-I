@@ -64,6 +64,14 @@ public class ProductService {
         }
 
         Product entity = new Product();
+        
+        // 🛠️ CONTROL DE ID: Si el cliente no manda un ID, la aplicación genera uno alfanumérico único
+        if (dto.getId() == null || dto.getId().isBlank()) {
+            entity.setId(java.util.UUID.randomUUID().toString());
+        } else {
+            entity.setId(dto.getId().trim());
+        }
+
         entity.setSku(dto.getSku().toUpperCase().trim());
         entity.setNombre(dto.getNombre());
         entity.setDescripcion(dto.getDescripcion());
@@ -74,7 +82,7 @@ public class ProductService {
         log.info("Producto guardado con id " + saved.getId() + " y sku " + saved.getSku());
         return convertToDTO(saved);
     }
-
+    
     @Transactional
     public ProductDTO updateStock(String sku, int cantidadARestar) {
         log.info("Iniciando descuento de stock para SKU: " + sku);
@@ -118,7 +126,7 @@ public class ProductService {
     }
 
     @Transactional
-    public ProductDTO update(Long id, ProductDTO dto) {
+    public ProductDTO update(String id, ProductDTO dto) {
         log.info("Actualizando producto con id " + id);
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> {
@@ -144,7 +152,7 @@ public class ProductService {
     }
 
     @Transactional
-    public void delete(Long id) {
+    public void delete(String id) {
         log.info("Eliminando producto id " + id);
         if (!productRepository.existsById(id)) {
             throw new RuntimeException("Producto con id " + id + " no encontrado");

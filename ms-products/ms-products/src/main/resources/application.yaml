@@ -6,23 +6,30 @@ spring:
     name: ms-products
 
   datasource:
-    url: jdbc:mysql://localhost:3306/productos_db
+    url: jdbc:mysql://mysql-db:3306/productos_db?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false
     username: root
+    password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create 
     show-sql: true
     properties:
       hibernate:
         format-sql: true
     database-platform: org.hibernate.dialect.MySQLDialect
 
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    operations-sorter: alpha
+
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://eureka-server:8761/eureka
     register-with-eureka: true
     fetch-registry: true
   instance:

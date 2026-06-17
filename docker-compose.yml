@@ -1,0 +1,99 @@
+services:
+  mysql-db:
+    image: mysql:8.0
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    networks:
+      - erp-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 5s
+      retries: 10
+
+  eureka-server:
+    build: ./eureka-server/eureka-server
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+    networks:
+      - erp-network
+
+  api-gateway:
+    build: ./api-gateway
+    container_name: api-gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - eureka-server
+    networks:
+      - erp-network
+
+  ms-clients:
+    build: ./ms-clients/ms-clients
+    container_name: ms-clients
+    ports:
+      - "8081:8081"
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+      eureka-server:
+        condition: service_started
+    networks:
+      - erp-network
+
+  ms-orders:
+    build: ./ms-orders/ms-orders
+    container_name: ms-orders
+    ports:
+      - "8082:8082"
+    depends_on:
+      - ms-clients
+    networks:
+      - erp-network
+
+  ms-products:
+    build: ./ms-products/ms-products
+    container_name: ms-products
+    ports:
+      - "8083:8083"
+    depends_on:
+      - ms-orders
+    networks:
+      - erp-network
+
+  ms-providers:
+    build: ./ms-providers/ms-providers
+    container_name: ms-providers
+    ports:
+      - "8084:8084"
+    depends_on:
+      - ms-products
+    networks:
+      - erp-network
+
+  ms-sellers:
+    build: ./ms-sellers/ms-sellers
+    container_name: ms-sellers
+    ports:
+      - "8087:8087"
+    depends_on:
+      - ms-providers
+    networks:
+      - erp-network
+
+  ms-purchases:
+    build: ./ms-purchases/ms-purchases
+    container_name: ms-purchases
+    ports:
+      - "8088:8088"
+    depends_on:
+      - ms-sellers
+    networks:
+      - erp-network
+
+networks:
+  erp-network:
+    driver: bridge
